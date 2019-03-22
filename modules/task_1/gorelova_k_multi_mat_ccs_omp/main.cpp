@@ -4,6 +4,7 @@
 #include <vector>
 #include <random>
 #include <сstring>
+#include <ctime>
 
 using std::vector;
 struct ccsMatrix {
