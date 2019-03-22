@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include <string>
+#include <сstring>
 
 using std::vector;
 struct ccsMatrix {
@@ -14,7 +14,7 @@ struct ccsMatrix {
     int* ColIndex;
 };
 
-void initMatrix(ccsMatrix *mtx, int nz, int n) {
+void initMatrix(ccsMatrix * mtx, int nz, int n) {
     mtx->NZ = nz;
     mtx->N = n;
     mtx->val = new double[nz];
@@ -22,13 +22,13 @@ void initMatrix(ccsMatrix *mtx, int nz, int n) {
     mtx->ColIndex = new int[n + 1];
 }
 
-void freeMatrix(ccsMatrix *mtx) {
+void freeMatrix(ccsMatrix * mtx) {
     delete[] mtx->val;
     delete[] mtx->row;
     delete[] mtx->ColIndex;
 }
 
-void transMatrix(ccsMatrix *A, ccsMatrix *AT) {
+void transMatrix(ccsMatrix * A, ccsMatrix * AT) {
     int sum = 0;
     int index, colIn;
     double v;
@@ -53,7 +53,7 @@ void transMatrix(ccsMatrix *A, ccsMatrix *AT) {
     }
 }
 
-void generateMatrix(ccsMatrix *mtx, int n, int cntInCol) {
+void generateMatrix(ccsMatrix * mtx, int n, int cntInCol) {
     int rows;
     bool exist;
     int nz = cntInCol * n;
@@ -104,7 +104,7 @@ void printMatrix(int n, ccsMatrix *mtx) {
     std::cout << std::endl;
 }
 
-int multMatrix(ccsMatrix *A, ccsMatrix *B, ccsMatrix *C, int size) {
+int multMatrix(ccsMatrix * A, ccsMatrix * B, ccsMatrix * C, int size) {
     int n = A->N;
     int NZ = 0, indexA, k, end;
     vector<int> colIndex, row;
@@ -138,7 +138,7 @@ int multMatrix(ccsMatrix *A, ccsMatrix *B, ccsMatrix *C, int size) {
     return 0;
 }
 
-int numericMult(int size, const ccsMatrix *A, const ccsMatrix *B, ccsMatrix *C) {
+int numericMult(int size, const ccsMatrix * A, const ccsMatrix * B, ccsMatrix * C) {
     int n = A->N;
     int index = 0, indexA, startC, finishC, colC;
     int *tmp = new int[size];
