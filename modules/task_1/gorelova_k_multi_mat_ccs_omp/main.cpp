@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <string.h>
 
 using std::vector;
 struct ccsMatrix {
@@ -31,7 +32,7 @@ void transMatrix(ccsMatrix *A, ccsMatrix *AT) {
     int sum = 0;
     int index, colIn;
     double v;
-    std::memset(AT->ColIndex, 0, (AT->N + 1) * sizeof(int));
+    memset(AT->ColIndex, 0, (AT->N + 1) * sizeof(int));
     for (int i = 0; i < A->NZ; i++)
         AT->ColIndex[A->row[i] + 1]++;
     for (int i = 1; i <= A->N; i++) {
@@ -169,7 +170,6 @@ int main(int argc, char** argv) {
     int N = (argc != 1) ? atoi(argv[1]) : 5;
     int cntInCol = (argc != 1) ? atoi(argv[2]) : 2;
     ccsMatrix A, B, AT, C;
-    int *colSize = nullptr;
     generateMatrix(&A, N, cntInCol);
     std::cout << "Matrix A: ";
     printMatrix(N, &A);
