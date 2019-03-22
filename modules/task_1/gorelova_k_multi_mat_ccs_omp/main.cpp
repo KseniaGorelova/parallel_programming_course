@@ -143,7 +143,7 @@ int numericMult(int size, const ccsMatrix * A, const ccsMatrix * B, ccsMatrix * 
     int n = A->N;
     int index = 0, indexA, startC, finishC, colC;
     int *tmp = new int[size];
-    double sum = 0.0, iSum = 0.0;
+    double sum = 0.0;
     for (int i = 0; i < n; ++i) {
         startC = C->ColIndex[i];
         finishC = C->ColIndex[i + 1];
@@ -151,7 +151,7 @@ int numericMult(int size, const ccsMatrix * A, const ccsMatrix * B, ccsMatrix * 
             memset(tmp, -1, sizeof(int)* size);
             for (int j = A->ColIndex[i]; j < A->ColIndex[i + 1]; ++j)
                 tmp[A->row[j]] = j;
-            for (int j = startC; j < finishC; ++j, sum = 0, iSum = 0) {
+            for (int j = startC; j < finishC; ++j, sum = 0) {
                 colC = C->row[j];
                 for (int k = B->ColIndex[colC]; k < B->ColIndex[colC + 1]; ++k) {
                     indexA = tmp[B->row[k]];
