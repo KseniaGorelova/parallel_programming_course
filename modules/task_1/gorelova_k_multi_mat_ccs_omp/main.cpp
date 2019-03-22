@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include <сstring>
+#include <cstring>
 #include <ctime>
 
 using std::vector;
