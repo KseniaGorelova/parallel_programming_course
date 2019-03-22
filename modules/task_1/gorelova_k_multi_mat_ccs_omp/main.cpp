@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include <string.h>
+#include <string>
 
 using std::vector;
 struct ccsMatrix {
