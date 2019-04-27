@@ -200,9 +200,9 @@ int multiplyOmp(ccsMatrix A, ccsMatrix B, ccsMatrix *C) {
 }
 
 int main(int argc, char** argv) {
-    omp_set_num_threads(4);
-    int N = (argc != 1) ? atoi(argv[1]) : 1000;
-    int cntInCol = (argc != 1) ? atoi(argv[2]) : 500;
+    omp_set_num_threads(2);
+    int N = (argc != 1) ? atoi(argv[1]) : 10;
+    int cntInCol = (argc != 1) ? atoi(argv[2]) : 5;
     ccsMatrix A, B, AT, C;
     generateMatrix(&A, N, cntInCol);
     initMatrix(&AT, A.NZ, A.N);
