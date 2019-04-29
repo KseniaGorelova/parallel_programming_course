@@ -162,7 +162,6 @@ int multiplyOmp(ccsMatrix A, ccsMatrix B, ccsMatrix *C) {
     vector<int> columnIndex;
     columnIndex.push_back(0);
     int nz = 0;
-    
 #pragma omp parallel
     {
         int *temp = new int[N];
