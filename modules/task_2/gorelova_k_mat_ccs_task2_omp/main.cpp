@@ -160,34 +160,37 @@ int multiplyOmp(ccsMatrix A, ccsMatrix B, ccsMatrix *C) {
     vector<int> rows;
     vector<double> value;
     vector<int> columnIndex;
-
-    int nz = 0;
-    int *temp = new int[N];
     columnIndex.push_back(0);
-#pragma omp parallel for
-    for (int i = 0; i < N; i++) {
-        memset(temp, -1, N * sizeof(int));
-        int ind1 = A.ColIndex[i], ind2 = A.ColIndex[i + 1];
-        for (int j = ind1; j < ind2; j++) {
-            int row = A.row[j];
-            temp[row] = j;
-        }
-        for (int j = 0; j < N; j++) {
-            double sum = 0;
-            int ind3 = B.ColIndex[i], ind4 = B.ColIndex[i + 1];
-            for (int k = ind3; k < ind4; k++) {
-                int brow = B.row[k];
-                int aind = temp[brow];
-                if (aind != -1)
-                    sum += A.val[aind] * B.val[k];
+    int nz = 0;
+    
+#pragma omp parallel
+    {
+        int *temp = new int[N];
+#pragma omp for
+        for (int i = 0; i < N; i++) {
+            memset(temp, -1, N * sizeof(int));
+            int ind1 = A.ColIndex[i], ind2 = A.ColIndex[i + 1];
+            for (int j = ind1; j < ind2; j++) {
+                int row = A.row[j];
+                temp[row] = j;
             }
-            if (fabs(sum) > 0) {
-                rows.push_back(j);
-                value.push_back(sum);
-                nz++;
+            for (int j = 0; j < N; j++) {
+                double sum = 0;
+                int ind3 = B.ColIndex[i], ind4 = B.ColIndex[i + 1];
+                for (int k = ind3; k < ind4; k++) {
+                    int brow = B.row[k];
+                    int aind = temp[brow];
+                    if (aind != -1)
+                        sum += A.val[aind] * B.val[k];
+                }
+                if (fabs(sum) > 0) {
+                    rows.push_back(j);
+                    value.push_back(sum);
+                    nz++;
+                }
             }
+            columnIndex.push_back(nz);
         }
-        columnIndex.push_back(nz);
     }
     initMatrix(C, nz, N);
     for (int j = 0; j < nz; j++) {
