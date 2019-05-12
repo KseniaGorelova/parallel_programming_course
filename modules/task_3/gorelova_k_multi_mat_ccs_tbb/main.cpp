@@ -1,6 +1,5 @@
 //  Copyright 2019 Gorelova Ksenia
 
-#include <omp.h>
 #include <tbb/tbb.h>
 #include <iostream>
 #include <vector>
@@ -243,14 +242,14 @@ int main(int argc, char** argv) {
     freeMatrix(&A);
     generateMatrix(&B, N, cntInCol);
     initMatrix(&C, cntInCol, N);
-    double t1 = omp_get_wtime();
+    tbb::tick_count t1 = tbb::tick_count::now();
     multiply(AT, B, &C);
-    double t2 = omp_get_wtime();
-    std::cout << "Time usual is " << t2 - t1<< std::endl;
-    double tbbT1 = omp_get_wtime();
+    tbb::tick_count t2 = tbb::tick_count::now();
+    std::cout << "Time usual is " << (t2 - t1).seconds() << std::endl;
+    tbb::tick_count tbbT1 = tbb::tick_count::now();
     multiplyTbb(AT, B, &C);
-    double tbbT2 = omp_get_wtime();
-    std::cout << "Time tbb is " << tbbT2 - tbbT1  << std::endl;
+    tbb::tick_count tbbT2 = tbb::tick_count::now();
+    std::cout << "Time tbb is " << (tbbT2 - tbbT1).seconds() << std::endl;
 
     freeMatrix(&AT);
     freeMatrix(&B);
