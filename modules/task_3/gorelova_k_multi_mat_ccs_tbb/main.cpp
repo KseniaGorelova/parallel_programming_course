@@ -194,6 +194,7 @@ int multiply(ccsMatrix A, ccsMatrix B, ccsMatrix *C) {
     }
     for (int i = 0; i <= N; i++)
         C->ColIndex[i] = columnIndex[i];
+    delete[] temp;
     return 0;
 }
 
@@ -226,7 +227,7 @@ int multiplyTbb(ccsMatrix A, ccsMatrix B, ccsMatrix *C) {
             size * sizeof(double));
         count += size;
     }
-    memcpy(&C->ColIndex, &columnIndex[0], (N + 1) * sizeof(int));
+    memcpy(C->ColIndex, &columnIndex[0], (N + 1) * sizeof(int));
 
     return 0;
 }
